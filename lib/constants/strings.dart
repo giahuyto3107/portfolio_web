@@ -40,8 +40,9 @@ class AppStrings {
       'I\'m a 4th-year Software Engineering student with a deep passion for mobile development. I specialize in creating high-performance, user-centric applications using Flutter and native Android technologies. My focus is on building apps that not only look great but also deliver exceptional user experiences through optimized performance and intuitive design.';
   static const String educationTitle = 'Education';
   static const String degreeTitle = 'Bachelor of Software Engineering';
-  static const String universityName = 'University of Technology';
-  static const String graduationYear = '2023 - 2027 (Expected)';
+  static const String universityName = 'Saigon University';
+  static const String graduationYear = '2022 - 2027 (Expected)';
+
   static const String passionTitle = 'Passion';
   static const String passionDescription =
       'Mobile performance optimization, smooth animations, and delivering apps that users genuinely enjoy using.';
@@ -57,7 +58,7 @@ class AppStrings {
 class AppLinks {
   static const String linkedinUrl = 'https://www.linkedin.com/in/togiahuy3107/';
   static const String githubUrl = 'https://github.com/giahuyto3107';
-  static const String emailAddress = 'giahuyto3107@gmail.com';
+  static const String emailAddress = 'https://mail.google.com/mail/u/0/#inbox?compose=DmwnWstqxHGgQqcTkXtHRXlFzJMnnvWjwFsppSwjVQrgjBCNDMQXkBWxPJVsTmxQzjqLMRckdKKQ';
   static const String resumeUrl = '/assets/resume.pdf';
   static const String nutriPalGithub = 'https://github.com/your-username/nutripal';
   static const String nutriPalApk = 'https://github.com/your-username/nutripal/releases';

@@ -22,7 +22,7 @@ class CustomNavigationBar extends StatefulWidget {
 }
 
 class _CustomNavigationBarState extends State<CustomNavigationBar> {
-  bool _isScrolled = false;
+  final bool _isScrolled = false;
 
   @override
   void initState() {
@@ -71,7 +71,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                     ),
                     child: const Center(
                       child: Text(
-                        'M',
+                        'H',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,
@@ -83,7 +83,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                   if (!isMobile) ...[
                     const SizedBox(width: 12),
                     const Text(
-                      'Mobile Dev',
+                      'To Gia Huy (Harry)',
                       style: TextStyle(
                         color: AppTheme.textPrimary,
                         fontSize: 18,

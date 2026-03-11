@@ -55,6 +55,8 @@ class AboutSection extends StatelessWidget {
               _buildEducationCard(),
               const SizedBox(height: 24),
               _buildPassionCard(),
+              const SizedBox(height: 24),
+              _buildHobbiesCard(),
             ],
           ),
         ),
@@ -70,6 +72,8 @@ class AboutSection extends StatelessWidget {
         _buildEducationCard(),
         const SizedBox(height: 24),
         _buildPassionCard(),
+        const SizedBox(height: 24),
+        _buildHobbiesCard(),
       ],
     );
   }
@@ -103,10 +107,10 @@ class AboutSection extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 20),
-              Column(
+              const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'Mobile Developer',
                     style: TextStyle(
                       fontSize: 24,
@@ -114,7 +118,7 @@ class AboutSection extends StatelessWidget {
                       color: AppTheme.textPrimary,
                     ),
                   ),
-                  const SizedBox(height: 4),
+                  SizedBox(height: 4),
                   Row(
                     children: [
                       Icon(
@@ -122,7 +126,7 @@ class AboutSection extends StatelessWidget {
                         size: 16,
                         color: AppTheme.textMuted,
                       ),
-                      const SizedBox(width: 4),
+                      SizedBox(width: 4),
                       Text(
                         'Open to Remote & Onsite',
                         style: TextStyle(
@@ -238,7 +242,7 @@ class AboutSection extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 6),
-          Text(
+          const Text(
             AppStrings.universityName,
             style: TextStyle(
               fontSize: 14,
@@ -246,16 +250,79 @@ class AboutSection extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 4),
-          Row(
+          const Row(
             children: [
               Icon(
                 Icons.calendar_today_rounded,
                 size: 14,
                 color: AppTheme.textMuted,
               ),
-              const SizedBox(width: 6),
+              SizedBox(width: 6),
               Text(
                 AppStrings.graduationYear,
+                style: TextStyle(
+                  fontSize: 13,
+                  color: AppTheme.textMuted,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 24),
+          // Honors & Awards
+          Row(
+            children: [
+              Container(
+                width: 44,
+                height: 44,
+                decoration: BoxDecoration(
+                  color: const Color(0xFFf59e0b).withOpacity(0.15),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: const Icon(
+                  Icons.emoji_events_rounded,
+                  color: Color(0xFFf59e0b),
+                  size: 22,
+                ),
+              ),
+              const SizedBox(width: 14),
+              const Text(
+                'Honors & Awards',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  color: AppTheme.textPrimary,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
+          const Text(
+            'University-level Scientific Research Award',
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              color: AppTheme.textPrimary,
+            ),
+          ),
+          const SizedBox(height: 6),
+          const Text(
+            'Excellent distinction',
+            style: TextStyle(
+              fontSize: 14,
+              color: AppTheme.textSecondary,
+            ),
+          ),
+          const SizedBox(height: 4),
+          const Row(
+            children: [
+              Icon(
+                Icons.calendar_today_rounded,
+                size: 14,
+                color: AppTheme.textMuted,
+              ),
+              SizedBox(width: 6),
+              Text(
+                'Sep 2024 – May 2025',
                 style: TextStyle(
                   fontSize: 13,
                   color: AppTheme.textMuted,
@@ -322,6 +389,91 @@ class AboutSection extends StatelessWidget {
               fontSize: 15,
               color: AppTheme.textSecondary,
               height: 1.6,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildHobbiesCard() {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        color: AppTheme.cardBg,
+        borderRadius: AppTheme.cardRadius,
+        border: Border.all(color: AppTheme.borderColor),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 44,
+                height: 44,
+                decoration: BoxDecoration(
+                  color: const Color(0xFF22c55e).withOpacity(0.15),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: const Icon(
+                  Icons.interests_rounded,
+                  color: Color(0xFF22c55e),
+                  size: 22,
+                ),
+              ),
+              const SizedBox(width: 14),
+              const Text(
+                'Hobbies',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  color: AppTheme.textPrimary,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
+          Wrap(
+            spacing: 12,
+            runSpacing: 12,
+            children: [
+              _buildHobbyChip(Icons.music_note_rounded, 'Playing Guitar', const Color(0xFFec4899)),
+              _buildHobbyChip(Icons.fitness_center_rounded, 'Hitting the Gym', const Color(0xFF3b82f6)),
+              _buildHobbyChip(Icons.sports_soccer_rounded, 'Playing Football', const Color(0xFF22c55e)),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildHobbyChip(IconData icon, String label, Color color) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.12),
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(
+          color: color.withOpacity(0.25),
+        ),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            icon,
+            size: 18,
+            color: color,
+          ),
+          const SizedBox(width: 8),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              color: color,
             ),
           ),
         ],

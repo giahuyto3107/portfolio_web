@@ -113,10 +113,10 @@ class FeaturedProjectSection extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 16),
-            Column(
+            const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   AppStrings.nutriPalName,
                   style: TextStyle(
                     fontSize: 28,
@@ -150,16 +150,17 @@ class FeaturedProjectSection extends StatelessWidget {
         _buildFeaturesGrid(),
         const SizedBox(height: 24),
         // Tech stack
-        Wrap(
+        const Wrap(
           spacing: 8,
           runSpacing: 8,
-          children: const [
+          children: [
             TechBadge(label: 'Flutter'),
             TechBadge(label: 'Dart'),
-            TechBadge(label: 'Bloc'),
+            TechBadge(label: 'Riverpod'),
             TechBadge(label: 'REST API'),
-            TechBadge(label: 'SQLite'),
+            TechBadge(label: 'MySQL'),
             TechBadge(label: 'Firebase'),
+            TechBadge(label: 'FastAPI'),
           ],
         ),
       ],
@@ -171,7 +172,7 @@ class FeaturedProjectSection extends StatelessWidget {
       (AppStrings.nutriPalFeature1, Icons.psychology_rounded),
       (AppStrings.nutriPalFeature2, Icons.animation_rounded),
       (AppStrings.nutriPalFeature3, Icons.api_rounded),
-      (AppStrings.nutriPalFeature4, Icons.cloud_off_rounded),
+      // (AppStrings.nutriPalFeature4, Icons.cloud_off_rounded),
     ];
 
     return Wrap(

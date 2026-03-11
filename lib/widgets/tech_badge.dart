@@ -4,11 +4,13 @@ import 'package:portfolio_web/theme/app_theme.dart';
 class TechBadge extends StatelessWidget {
   final String label;
   final Color? color;
+  final bool isCompact;
 
   const TechBadge({
     super.key,
     required this.label,
     this.color,
+    this.isCompact = false,
   });
 
   @override
@@ -16,7 +18,10 @@ class TechBadge extends StatelessWidget {
     final badgeColor = color ?? _getColorForTech(label);
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      padding: EdgeInsets.symmetric(
+        horizontal: isCompact ? 8 : 12,
+        vertical: isCompact ? 4 : 6,
+      ),
       decoration: BoxDecoration(
         color: badgeColor.withOpacity(0.15),
         borderRadius: BorderRadius.circular(6),
@@ -29,7 +34,7 @@ class TechBadge extends StatelessWidget {
         label,
         style: TextStyle(
           color: badgeColor,
-          fontSize: 12,
+          fontSize: isCompact ? 10 : 12,
           fontWeight: FontWeight.w600,
         ),
       ),

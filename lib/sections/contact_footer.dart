@@ -30,7 +30,7 @@ class ContactFooter extends StatelessWidget {
               // Divider
               Container(
                 height: 1,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
                       Colors.transparent,
@@ -75,53 +75,53 @@ class ContactFooter extends StatelessWidget {
         const SizedBox(height: 40),
         // Social links
         if (isMobile)
-          Column(
+          const Column(
             children: [
               _SocialButton(
                 icon: FontAwesomeIcons.linkedin,
                 label: 'LinkedIn',
                 url: AppLinks.linkedinUrl,
-                color: const Color(0xFF0A66C2),
+                color: Color(0xFF0A66C2),
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: 16),
               _SocialButton(
                 icon: FontAwesomeIcons.github,
                 label: 'GitHub',
                 url: AppLinks.githubUrl,
-                color: const Color(0xFFf0f6fc),
+                color: Color(0xFFf0f6fc),
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: 16),
               _SocialButton(
                 icon: FontAwesomeIcons.envelope,
                 label: 'Email',
                 url: 'mailto:${AppLinks.emailAddress}',
-                color: const Color(0xFFea4335),
+                color: Color(0xFFea4335),
               ),
             ],
           )
         else
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               _SocialButton(
                 icon: FontAwesomeIcons.linkedin,
                 label: 'LinkedIn',
                 url: AppLinks.linkedinUrl,
-                color: const Color(0xFF0A66C2),
+                color: Color(0xFF0A66C2),
               ),
-              const SizedBox(width: 20),
+              SizedBox(width: 20),
               _SocialButton(
                 icon: FontAwesomeIcons.github,
                 label: 'GitHub',
                 url: AppLinks.githubUrl,
-                color: const Color(0xFFf0f6fc),
+                color: Color(0xFFf0f6fc),
               ),
-              const SizedBox(width: 20),
+              SizedBox(width: 20),
               _SocialButton(
                 icon: FontAwesomeIcons.envelope,
                 label: 'Email',
                 url: 'mailto:${AppLinks.emailAddress}',
-                color: const Color(0xFFea4335),
+                color: Color(0xFFea4335),
               ),
             ],
           ),
@@ -140,12 +140,12 @@ class ContactFooter extends StatelessWidget {
             borderRadius: BorderRadius.circular(50),
             border: Border.all(color: AppTheme.borderColor),
           ),
-          child: Row(
+          child: const Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               FlutterLogo(size: 20),
-              const SizedBox(width: 10),
-              const Text(
+              SizedBox(width: 10),
+              Text(
                 AppStrings.builtWithFlutter,
                 style: TextStyle(
                   color: AppTheme.textSecondary,
@@ -158,7 +158,7 @@ class ContactFooter extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         // Copyright
-        Text(
+        const Text(
           AppStrings.copyrightText,
           textAlign: TextAlign.center,
           style: TextStyle(
