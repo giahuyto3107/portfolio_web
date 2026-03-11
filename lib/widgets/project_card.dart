@@ -89,6 +89,23 @@ class _ProjectCardState extends State<ProjectCard>
   @override
   Widget build(BuildContext context) {
     final gradient = _getProjectGradient();
+    final screenWidth = context.screenWidth;
+
+    // More granular responsive sizing based on screen width
+    final bool isCompact = screenWidth < 600;
+    final bool isMedium = screenWidth >= 600 && screenWidth < 1150;
+
+    final thumbnailHeight = isCompact ? 90.0 : (isMedium ? 100.0 : 120.0);
+    final contentPadding = isCompact ? 12.0 : (isMedium ? 14.0 : 18.0);
+    final titleFontSize = isCompact ? 14.0 : (isMedium ? 15.0 : 17.0);
+    final descriptionFontSize = isCompact ? 12.0 : (isMedium ? 12.0 : 13.0);
+    final linkFontSize = isCompact ? 11.0 : (isMedium ? 11.0 : 12.0);
+    final projectIconSize = isCompact ? 32.0 : (isMedium ? 38.0 : 44.0);
+    final linkIconSize = isCompact ? 14.0 : (isMedium ? 15.0 : 16.0);
+    final arrowIconSize = isCompact ? 13.0 : (isMedium ? 14.0 : 15.0);
+    final footerVerticalPadding = isCompact ? 8.0 : (isMedium ? 10.0 : 12.0);
+    final badgeSpacing = isCompact ? 4.0 : 5.0;
+    final maxBadges = isCompact ? 2 : 3;
 
     return MouseRegion(
       cursor: SystemMouseCursors.click,
@@ -113,14 +130,14 @@ class _ProjectCardState extends State<ProjectCard>
                     width: 1.5,
                   ),
                   boxShadow: _isHovered
-                      ? [
-                          BoxShadow(
-                            color: gradient[0].withOpacity(0.2),
-                            blurRadius: 30,
-                            offset: const Offset(0, 10),
-                          ),
-                        ]
-                      : AppTheme.cardShadow,
+                    ? [
+                      BoxShadow(
+                        color: gradient[0].withOpacity(0.2),
+                        blurRadius: 30,
+                        offset: const Offset(0, 10),
+                      ),
+                    ]
+                  : AppTheme.cardShadow,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -128,7 +145,7 @@ class _ProjectCardState extends State<ProjectCard>
                     // Project thumbnail/icon area
                     Container(
                       width: double.infinity,
-                      height: 120,
+                      height: thumbnailHeight,
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: gradient,
@@ -143,59 +160,71 @@ class _ProjectCardState extends State<ProjectCard>
                         child: Icon(
                           _getProjectIcon(),
                           color: Colors.white.withOpacity(0.9),
-                          size: 48,
+                          size: projectIconSize,
                         ),
                       ),
                     ),
                     // Content
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            // Title
-                            Text(
-                              widget.project.title,
-                              style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                                color: AppTheme.textPrimary,
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            // Key achievement
-                            Expanded(
-                              child: Text(
-                                widget.project.keyAchievement,
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  color: AppTheme.textSecondary,
-                                  height: 1.5,
+                        padding: EdgeInsets.all(contentPadding),
+                        child: ClipRect(
+                          clipBehavior: Clip.hardEdge,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // Title
+                              Text(
+                                widget.project.title,
+                                style: TextStyle(
+                                  fontSize: titleFontSize,
+                                  fontWeight: FontWeight.w600,
+                                  color: AppTheme.textPrimary,
                                 ),
-                                maxLines: 3,
+                                maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
-                            ),
-                            const SizedBox(height: 12),
-                            // Tech stack badges
-                            Wrap(
-                              spacing: 6,
-                              runSpacing: 6,
-                              children: widget.project.techStack
-                                  .take(3)
-                                  .map((tech) => TechBadge(label: tech))
-                                  .toList(),
-                            ),
-                          ],
+                              const SizedBox(height: 6),
+                              // Key achievement
+                              Expanded(
+                                child: Text(
+                                  widget.project.keyAchievement,
+                                  style: TextStyle(
+                                    fontSize: descriptionFontSize,
+                                    color: AppTheme.textSecondary,
+                                    height: 1.4,
+                                  ),
+                                  maxLines: isCompact ? 2 : 3,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              const SizedBox(height: 6),
+                              // Tech stack badges
+                              Flexible(
+                                child: ClipRect(
+                                  child: Wrap(
+                                    spacing: badgeSpacing,
+                                    runSpacing: badgeSpacing,
+                                    children: widget.project.techStack
+                                        .take(maxBadges)
+                                        .map((tech) => TechBadge(
+                                            label: tech,
+                                            isCompact: isCompact || isMedium,
+                                          ))
+                                        .toList(),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
                     // View project link
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 14,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: contentPadding,
+                        vertical: footerVerticalPadding,
                       ),
                       decoration: BoxDecoration(
                         border: Border(
@@ -208,16 +237,16 @@ class _ProjectCardState extends State<ProjectCard>
                         children: [
                           Icon(
                             Icons.code_rounded,
-                            size: 18,
+                            size: linkIconSize,
                             color: _isHovered
                                 ? gradient[0]
                                 : AppTheme.textMuted,
                           ),
-                          const SizedBox(width: 8),
+                          const SizedBox(width: 6),
                           Text(
                             'View on GitHub',
                             style: TextStyle(
-                              fontSize: 13,
+                              fontSize: linkFontSize,
                               fontWeight: FontWeight.w500,
                               color: _isHovered
                                   ? gradient[0]
@@ -234,7 +263,7 @@ class _ProjectCardState extends State<ProjectCard>
                             ),
                             child: Icon(
                               Icons.arrow_forward_rounded,
-                              size: 16,
+                              size: arrowIconSize,
                               color: _isHovered
                                   ? gradient[0]
                                   : AppTheme.textMuted,

@@ -42,7 +42,7 @@ class TechnicalToolkitSection extends StatelessWidget {
   }
 
   Widget _buildDesktopLayout() {
-    final categories = ProjectData.skillCategories;
+    const categories = ProjectData.skillCategories;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -140,12 +140,15 @@ class _SkillCategoryCardState extends State<_SkillCategoryCard> {
                   ),
                 ),
                 const SizedBox(width: 16),
-                Text(
-                  widget.category.title,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                    color: AppTheme.textPrimary,
+                Flexible(
+                  child: Text(
+                    widget.category.title,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      color: AppTheme.textPrimary,
+                    ),
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
               ],

@@ -77,7 +77,7 @@ class _HeroSectionState extends State<HeroSection>
           child: FadeTransition(
             opacity: _fadeInAnimation,
             child: SlideTransition(
-              position: _slideAnimation,
+              position: _slideAnimation ,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,

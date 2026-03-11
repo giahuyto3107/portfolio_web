@@ -10,20 +10,40 @@ class ProjectGallerySection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = context.screenWidth;
     final isMobile = context.isMobile;
-    final isTablet = context.isTablet;
 
-    int crossAxisCount = 3;
-    if (isMobile) {
+    // More granular breakpoints for column count
+    int crossAxisCount;
+    double childAspectRatio;
+    double spacing;
+
+    if (screenWidth < 600) {
+      // Mobile: 1 column
       crossAxisCount = 1;
-    } else if (isTablet) {
+      childAspectRatio = 1.3;
+      spacing = 20;
+    } else if (screenWidth < 900) {
+      // Small tablet: 2 columns
       crossAxisCount = 2;
+      childAspectRatio = 0.85;
+      spacing = 20;
+    } else if (screenWidth < 1150) {
+      // Large tablet / small desktop: 2 columns with better ratio
+      crossAxisCount = 2;
+      childAspectRatio = 1.0;
+      spacing = 24;
+    } else {
+      // Desktop: 3 columns
+      crossAxisCount = 3;
+      childAspectRatio = 0.9;
+      spacing = 24;
     }
 
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: context.contentPadding,
-        vertical: 80,
+        vertical: isMobile ? 60 : 80,
       ),
       child: Center(
         child: ConstrainedBox(
@@ -41,9 +61,9 @@ class ProjectGallerySection extends StatelessWidget {
                 physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: crossAxisCount,
-                  crossAxisSpacing: 24,
-                  mainAxisSpacing: 24,
-                  childAspectRatio: isMobile ? 1.1 : 0.95,
+                  crossAxisSpacing: spacing,
+                  mainAxisSpacing: spacing,
+                  childAspectRatio: childAspectRatio,
                 ),
                 itemCount: ProjectData.projects.length,
                 itemBuilder: (context, index) {
