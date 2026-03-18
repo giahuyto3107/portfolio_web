@@ -1,9 +1,16 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:open_filex/open_filex.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:portfolio_web/theme/app_theme.dart';
 import 'package:portfolio_web/constants/strings.dart';
 import 'package:portfolio_web/widgets/animated_gradient_text.dart';
 import 'package:portfolio_web/widgets/primary_button.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'dart:js_interop';
+import 'package:web/web.dart' as web;
 
 class HeroSection extends StatefulWidget {
   final VoidCallback? onViewWorkPressed;
@@ -54,9 +61,50 @@ class _HeroSectionState extends State<HeroSection>
   }
 
   Future<void> _downloadResume() async {
-    final Uri url = Uri.parse(AppLinks.resumeUrl);
-    if (await canLaunchUrl(url)) {
-      await launchUrl(url);
+    const String resumeUrl = AppLinks.resumeUrl;
+
+    try {
+      if (kIsWeb) {
+        // Trigger a real file download in the browser
+        final anchor = web.HTMLAnchorElement()
+          ..href = resumeUrl
+          ..download = 'Togiahuy_Resume.pdf';
+        web.document.body?.append(anchor);
+        anchor.click();
+        anchor.remove();
+      } else {
+        final Dio dio = Dio();
+
+        Directory? directory;
+        if (Platform.isAndroid) {
+          directory = Directory('/storage/emulated/0/Download');
+          if (!await directory.exists()) {
+            directory = await getExternalStorageDirectory();
+          }
+        } else {
+          directory = await getApplicationDocumentsDirectory();
+        }
+
+        final String fileName =
+            "Togiahuy_Resume_${DateTime.now().millisecondsSinceEpoch}.pdf";
+        final String filePath = "${directory!.path}/$fileName";
+
+        await dio.download(
+          resumeUrl,
+          filePath,
+          onReceiveProgress: (received, total) {
+            if (total != -1) {
+              debugPrint(
+                  "Progress: ${(received / total * 100).toStringAsFixed(0)}%");
+            }
+          },
+        );
+
+        debugPrint("File saved to: $filePath");
+        await OpenFilex.open(filePath);
+      }
+    } catch (e) {
+      debugPrint("Download failed: $e");
     }
   }
 
@@ -205,10 +253,22 @@ class _HeroSectionState extends State<HeroSection>
             width: double.infinity,
             child: OutlinedButton.icon(
               onPressed: _downloadResume,
-              icon: const Icon(Icons.download_rounded),
-              label: const Text(AppStrings.downloadResumeButton),
+              icon: const Icon(
+                Icons.download_rounded,
+                size: 20,
+              ),
+              label: const Text(
+                AppStrings.downloadResumeButton,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
               style: OutlinedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(vertical: 18),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 32,
+                  vertical: 16,
+                ),
               ),
             ),
           ),
@@ -227,8 +287,20 @@ class _HeroSectionState extends State<HeroSection>
         const SizedBox(width: 16),
         OutlinedButton.icon(
           onPressed: _downloadResume,
-          icon: const Icon(Icons.download_rounded),
-          label: const Text(AppStrings.downloadResumeButton),
+          icon: const Icon(
+            Icons.download_rounded,
+            size: 20,
+          ),
+          label: const Text(
+            AppStrings.downloadResumeButton,
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          style: OutlinedButton.styleFrom(
+            padding: const EdgeInsets.symmetric(vertical: 18),
+          ),
         ),
       ],
     );
