@@ -59,7 +59,7 @@ class AppLinks {
   static const String linkedinUrl = 'https://www.linkedin.com/in/togiahuy3107/';
   static const String githubUrl = 'https://github.com/giahuyto3107';
   static const String emailAddress = 'https://mail.google.com/mail/u/0/#inbox?compose=DmwnWstqxHGgQqcTkXtHRXlFzJMnnvWjwFsppSwjVQrgjBCNDMQXkBWxPJVsTmxQzjqLMRckdKKQ';
-  static const String resumeUrl = '/assets/resume.pdf';
+  static const String resumeUrl = '/assets/togiahuy_resume.pdf';
   static const String nutriPalGithub = 'https://github.com/your-username/nutripal';
   static const String nutriPalApk = 'https://github.com/your-username/nutripal/releases';
 }
